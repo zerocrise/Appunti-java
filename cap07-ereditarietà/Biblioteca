@@ -1,0 +1,276 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Biblioteca {
+
+    private static ArrayList<Pubblicazione> biblioteca = new ArrayList<>();
+    private static Scanner input = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int scelta;
+
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║  BIBLIOTECA PERSONALE - Versione 7.0  ║");
+        System.out.println("║         Con Ereditarietà              ║");
+        System.out.println("╚════════════════════════════════════════╝");
+
+        do {
+            System.out.println("\n═══════════════ MENU ═══════════════════");
+            System.out.println("1. Aggiungi Libro");
+            System.out.println("2. Aggiungi Rivista");
+            System.out.println("3. Aggiungi Fumetto");
+            System.out.println("4. Visualizza tutte le pubblicazioni");
+            System.out.println("5. Visualizza solo libri");
+            System.out.println("6. Visualizza solo riviste");
+            System.out.println("7. Visualizza solo fumetti");
+            System.out.println("8. Cerca pubblicazione");
+            System.out.println("9. Statistiche");
+            System.out.println("0. Esci");
+            System.out.println("════════════════════════════════════════");
+            System.out.print("Scelta: ");
+            scelta = input.nextInt();
+            input.nextLine();
+
+            try {
+                switch (scelta) {
+                    case 1:
+                        aggiungiLibro();
+                        break;
+                    case 2:
+                        aggiungiRivista();
+                        break;
+                    case 3:
+                        aggiungiFumetto();
+                        break;
+                    case 4:
+                        visualizzaTutte();
+                        break;
+                    case 5:
+                        visualizzaPerTipo(Libro.class);
+                        break;
+                    case 6:
+                        visualizzaPerTipo(Rivista.class);
+                        break;
+                    case 7:
+                        visualizzaPerTipo(Fumetto.class);
+                        break;
+                    case 8:
+                        cercaPubblicazione();
+                        break;
+                    case 9:
+                        mostraStatistiche();
+                        break;
+                    case 0:
+                        System.out.println("\n👋 Arrivederci!");
+                        break;
+                    default:
+                        System.out.println("\n❌ Scelta non valida!");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("\n❌ Errore: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("\n❌ Errore imprevisto: " + e.getMessage());
+                input.nextLine();
+            }
+
+        } while (scelta != 0);
+
+        input.close();
+    }
+
+    private static void aggiungiLibro() {
+        System.out.println("\n➕ AGGIUNGI LIBRO");
+        System.out.println("─────────────────────────────────────────");
+
+        System.out.print("Titolo: ");
+        String titolo = input.nextLine();
+
+        System.out.print("Autore: ");
+        String autore = input.nextLine();
+
+        System.out.print("Anno: ");
+        int anno = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Genere: ");
+        String genere = input.nextLine();
+
+        System.out.print("Pagine: ");
+        int pagine = input.nextInt();
+
+        System.out.print("Prezzo (€): ");
+        double prezzo = input.nextDouble();
+        input.nextLine();
+
+        System.out.print("ISBN (opzionale, invio per saltare): ");
+        String isbn = input.nextLine();
+
+        Libro libro;
+        if (isbn.isEmpty()) {
+            libro = new Libro(titolo, autore, anno, genere, pagine, prezzo);
+        } else {
+            libro = new Libro(titolo, autore, anno, genere, pagine, prezzo, isbn);
+        }
+
+        biblioteca.add(libro);
+        System.out.println("\n✅ Libro aggiunto con successo!");
+    }
+
+    private static void aggiungiRivista() {
+        System.out.println("\n➕ AGGIUNGI RIVISTA");
+        System.out.println("─────────────────────────────────────────");
+
+        System.out.print("Titolo: ");
+        String titolo = input.nextLine();
+
+        System.out.print("Editore: ");
+        String editore = input.nextLine();
+
+        System.out.print("Anno: ");
+        int anno = input.nextInt();
+
+        System.out.print("Numero edizione: ");
+        int numero = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Periodicità (Settimanale/Mensile/Trimestrale): ");
+        String periodicita = input.nextLine();
+
+        System.out.print("Pagine: ");
+        int pagine = input.nextInt();
+
+        System.out.print("Prezzo (€): ");
+        double prezzo = input.nextDouble();
+
+        Rivista rivista = new Rivista(titolo, editore, anno, numero, periodicita, pagine, prezzo);
+        biblioteca.add(rivista);
+        System.out.println("\n✅ Rivista aggiunta con successo!");
+    }
+
+    private static void aggiungiFumetto() {
+        System.out.println("\n➕ AGGIUNGI FUMETTO");
+        System.out.println("─────────────────────────────────────────");
+
+        System.out.print("Titolo: ");
+        String titolo = input.nextLine();
+        System.out.print("Autore: ");
+        String autore = input.nextLine();
+
+        System.out.print("Disegnatore: ");
+        String disegnatore = input.nextLine();
+
+        System.out.print("Anno: ");
+        int anno = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Serie: ");
+        String serie = input.nextLine();
+
+        System.out.print("Numero volume: ");
+        int volume = input.nextInt();
+
+        System.out.print("Pagine: ");
+        int pagine = input.nextInt();
+
+        System.out.print("Prezzo (€): ");
+        double prezzo = input.nextDouble();
+
+        System.out.print("A colori? (true/false): ");
+        boolean colori = input.nextBoolean();
+
+        Fumetto fumetto = new Fumetto(titolo, autore, disegnatore, anno, serie, volume, pagine, prezzo, colori);
+        biblioteca.add(fumetto);
+        System.out.println("\n✅ Fumetto aggiunto con successo!");
+    }
+
+    private static void visualizzaTutte() {
+        System.out.println("\n📚 TUTTE LE PUBBLICAZIONI");
+        System.out.println("─────────────────────────────────────────");
+
+        if (biblioteca.isEmpty()) {
+            System.out.println("❌ Nessuna pubblicazione in biblioteca");
+            return;
+        }
+
+        for (int i = 0; i < biblioteca.size(); i++) {
+            System.out.println("\n" + (i + 1) + ".");
+            biblioteca.get(i).stampaInfo();
+        }
+
+        System.out.println("\n─────────────────────────────────────────");
+        System.out.println("Totale: " + biblioteca.size() + " pubblicazioni");
+    }
+
+    private static void visualizzaPerTipo(Class<?> tipo) {
+        String nomeTipo = tipo.getSimpleName();
+        System.out.println("\n📚 " + nomeTipo.toUpperCase());
+        System.out.println("─────────────────────────────────────────");
+
+        int contatore = 0;
+        for (Pubblicazione pub : biblioteca) {
+            if (tipo.isInstance(pub)) {
+                pub.stampaInfo();
+                contatore++;
+            }
+        }
+
+        if (contatore == 0) {
+            System.out.println("❌ Nessun " + nomeTipo.toLowerCase() + " trovato");
+        } else {
+            System.out.println("\nTotale: " + contatore + " " + nomeTipo.toLowerCase() + "(i)");
+        }
+    }
+
+    private static void cercaPubblicazione() {
+        System.out.print("\n🔍 Parola chiave nel titolo: ");
+        String parola = input.nextLine();
+
+        System.out.println("\n📖 RISULTATI RICERCA:");
+        System.out.println("─────────────────────────────────────────");
+
+        int trovati = 0;
+        for (Pubblicazione pub : biblioteca) {
+            if (pub.getTitolo().toLowerCase().contains(parola.toLowerCase())) {
+                pub.stampaInfo();
+                trovati++;
+            }
+        }
+
+        if (trovati == 0) {
+            System.out.println("❌ Nessuna pubblicazione trovata");
+        }
+    }
+
+    private static void mostraStatistiche() {
+        if (biblioteca.isEmpty()) {
+            System.out.println("\n❌ Nessuna pubblicazione in biblioteca");
+            return;
+        }
+
+        System.out.println("\n📊 STATISTICHE");
+        System.out.println("─────────────────────────────────────────");
+
+        int numLibri = 0, numRiviste = 0, numFumetti = 0;
+        double valTotale = 0;
+        int totPagine = 0;
+
+        for (Pubblicazione pub : biblioteca) {
+            if (pub instanceof Libro) numLibri++;
+            else if (pub instanceof Rivista) numRiviste++;
+            else if (pub instanceof Fumetto) numFumetti++;
+
+            valTotale += pub.getPrezzo();
+            totPagine += pub.getNumeroPagine();
+        }
+
+        System.out.println("Totale pubblicazioni:  " + biblioteca.size());
+        System.out.println("  - Libri:             " + numLibri);
+        System.out.println("  - Riviste:           " + numRiviste);
+        System.out.println("  - Fumetti:           " + numFumetti);
+        System.out.println();
+        System.out.printf("Valore totale:         €%.2f%n", valTotale);
+        System.out.printf("Valore con IVA:        €%.2f%n", valTotale * 1.22);
+        System.out.println("Totale pagine:         " + totPagine);
+        System.out.printf("Media pagine:          %.1f%n", totPagine / (double) biblioteca.size());
+    }
+}
