@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Biblioteca5 {
+public class Biblioteca {
     
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
