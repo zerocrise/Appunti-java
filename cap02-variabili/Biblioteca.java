@@ -66,3 +66,34 @@ public class Biblioteca {
         input.close();
     }
 }
+/*
+Esempio di Esecuzione
+╔════════════════════════════════════════╗
+║  BIBLIOTECA PERSONALE - Versione 2.0                                 ║
+║Catalogatore Interattivo     						║                                                  ╚════════════════════════════════════════╝
+Inserisci i dati del nuovo libro:
+─────────────────────────────────────────
+Titolo: Il Nome della Rosa
+Autore: Umberto Eco
+Anno di pubblicazione: 1980
+Genere: Giallo storico
+Numero di pagine: 503
+Prezzo (€): 12.50
+Disponibile? (true/false): true
+
+═════════════════════════════════════════
+📚 SCHEDA LIBRO REGISTRATO
+═════════════════════════════════════════
+Titolo:           Il Nome della Rosa
+Autore:           Umberto Eco
+Anno:             1980 (44 anni fa)
+Genere:           Giallo storico
+Pagine:           503
+Prezzo:           €12.5
+Prezzo con IVA:   €15.25
+Stato:            Disponibile
+═════════════════════════════════════════
+
+📊 STATISTICHE:
+Tempo di lettura stimato: 10.06 ore
+*/
